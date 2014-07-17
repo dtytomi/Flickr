@@ -93,8 +93,8 @@ $("document").ready(function (){
 
 					if (typeof(farmId) != 'undefined') {
 
-							$('#mcts1').append('<div class="location"><img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_q.jpg")"><input id="try" type="text" value="'+lat+', '+lng+'"></div>');
-							$('#try').hide();
+							$('#mcts1').append('<div class="location"><img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_q.jpg")"><input id="try" type="hidden" value="'+lat+', '+lng+'"></div>');
+							
 					};
 												            
 		        });
