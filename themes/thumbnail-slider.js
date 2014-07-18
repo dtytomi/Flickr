@@ -11,7 +11,7 @@ var mct1_Options =
     circular: true,
     largeImageSlider: null,
     inSyncWithLargeImageSlider: true,
-    license: "mylicense"
+    // license: "mylicense"
 };
 
 var thumbnailSlider = new ThumbnailSlider(mct1_Options);
