@@ -93,7 +93,7 @@ $("document").ready(function (){
 
 					if (typeof(farmId) != 'undefined') {
 
-							$('#mcts1').append('<div class="location"><img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_q.jpg")"><input id="try" type="hidden" value="'+lat+', '+lng+'"></div>');
+							$('.jTscroller').append('<a href="#" class="location"><img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_t.jpg")"><input id="try" type="hidden" value="'+lat+', '+lng+'"></a>');
 							
 					};
 												            
@@ -112,7 +112,7 @@ $("document").ready(function (){
 		};
 
 		
-	$.getJSON(url, {}, favouritePix);
+		$.getJSON(url, {}, favouritePix);
 
 	
 
@@ -138,7 +138,7 @@ $("document").ready(function (){
 				// console.log(result.farm);
 				
 
-				$('#mcts1').append('<img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_q.jpg")">');
+				$('.jTscroller').append('<img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_q.jpg")">');
 				
 
 				
