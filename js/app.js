@@ -13,9 +13,9 @@ $("document").ready(function (){
 	function initialize() {
 	  geocoder = new google.maps.Geocoder();
 		  
-		  var latlng = new google.maps.LatLng(0, 90);
+		  var latlng = new google.maps.LatLng(6.3456, 80);
 		  var mapOptions = {
-		    zoom: 3,
+		    zoom: 15,
 		    center: latlng,
 		    mapTypeId: 'roadmap'
 		  }
@@ -31,7 +31,7 @@ $("document").ready(function (){
 		  geocoder.geocode({'latLng': latlng}, function(results, status) {
 		    if (status == google.maps.GeocoderStatus.OK) {
 		      if (results[1]) {
-		        map.setZoom(3);
+		        map.setZoom(15);
 		        marker = new google.maps.Marker({
 		            position: latlng,
 		            map: map
@@ -61,7 +61,7 @@ $("document").ready(function (){
 	  Image Loaded by Default
 	**************************/
 
-	var findPix = 'lagos';
+	var findPix = 'Lagos, Nigeria';
 	var results;
 	var photoId;
 	var farmId;
@@ -93,20 +93,21 @@ $("document").ready(function (){
 
 					if (typeof(farmId) != 'undefined') {
 
-							$('.jTscroller').append('<a href="#" class="location"><img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_t.jpg")"><input id="try" type="hidden" value="'+lat+', '+lng+'"></a>');
+							$('.jTscroller').append('<a class="location" href="#"><img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_q.jpg")"><input id="try" type="hidden" value="'+lat+', '+lng+'"></a>');
 							
 					};
 												            
 		        });
 
-				$('.location img').click(function(){
-					  var input = document.getElementById('try').value;
+				$('.location').click(function(){
+					  var input = $('.location input#try').val();
+					  console.log(input);
 					  var latlngStr = input.split(',', 2);
 					  var lat = parseFloat(latlngStr[0]);
 					  var lng = parseFloat(latlngStr[1]);
 							
 						codeLatLng( lat, lng);
-							console.log("am a life");
+							console.log("am a life" + lat, lng);
 					});
 
 		};
@@ -123,37 +124,51 @@ $("document").ready(function (){
 
 	var pixSearch = function(){
 		
-		 var findPix = $('#term').val();
-		 
+		console.log('here I am');
 
-		 var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=6bf279c5f9d9e36bea5b3fb83f7a44f6&tags="+ findPix +"&has_geo=1&extras=geo&format=json&jsoncallback=?";
+		$('.jTscroller .location').remove();
+
+		var findPix = $('#term').val();
+
+			
+		var url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=6bf279c5f9d9e36bea5b3fb83f7a44f6&tags="+ findPix +"&has_geo=1&extras=geo&format=json&jsoncallback=?";
 
 		var myPix = function(data){
 			// console.log(data);
 			results = data.photos.photo;
 
 			$.each(results, function(index, result){
-	           
-	           
-				// console.log(result.farm);
-				
 
-				$('.jTscroller').append('<img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_q.jpg")">');
-				
+				lat = result.latitude;
+	        	lng = result.longitude;
+	           
+		         if (typeof(farmId) != 'undefined') {
 
-				
-	    
-	        });
+					$('.jTscroller').append('<a class="location" href="#"><img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_q.jpg")"><input id="try" type="hidden" value="'+lat+', '+lng+'"></a>');
+				};
+												            
+		     });
+
+			$('.location').click(function(){
+					  var input = $('input#try').val();
+					  console.log(input);
+					  var latlngStr = input.split(',', 2);
+					  var lat = parseFloat(latlngStr[0]);
+					  var lng = parseFloat(latlngStr[1]);
+							
+						codeLatLng( lat, lng);
+							console.log("am a life" + lat, lng);
+			});
+							
+	        
 		};
 
 		$.getJSON(url, {}, myPix);
-
 	};
 
 	$('#search').click(pixSearch);
 
-
-	});
+});
 
 
 
