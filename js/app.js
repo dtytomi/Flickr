@@ -100,7 +100,7 @@ $("document").ready(function (){
 		        });
 
 				$('.location').click(function(){
-					  var input = $(this).next().value;
+					  var input = $(this).find('input[type="hidden"]').val();
 					  console.log(input);
 					  var latlngStr = input.split(',', 2);
 					  var lat = parseFloat(latlngStr[0]);
@@ -150,7 +150,7 @@ $("document").ready(function (){
 		     });
 
 			$('.location').click(function(){
-					  var input = $('input#try').val();
+					  var input = $(this).find('input[type="hidden"]').val();
 					  console.log(input);
 					  var latlngStr = input.split(',', 2);
 					  var lat = parseFloat(latlngStr[0]);
