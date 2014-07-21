@@ -100,7 +100,7 @@ $("document").ready(function (){
 		        });
 
 				$('.location').click(function(){
-					  var input = $('.location input#try').val();
+					  var input = $(this).next().value;
 					  console.log(input);
 					  var latlngStr = input.split(',', 2);
 					  var lat = parseFloat(latlngStr[0]);
