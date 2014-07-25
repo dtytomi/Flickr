@@ -1,11 +1,11 @@
-var myFeature = {
+var myApp = {
     
         
         /*************************
                 Google Map
         **************************/
     init: function(){
-        myFeature.config = {
+        myApp.config = {
             findPix: "lagos, nigeria",
             farmId: 0,
             secretId: 0,
@@ -24,28 +24,28 @@ var myFeature = {
 
         };
 
-        google.maps.event.addDomListener(window, 'load', myFeature.geo);
-        $.getJSON(myFeature.config.url, {}, myFeature.favouritePix);
+        google.maps.event.addDomListener(window, 'load', myApp.geo);
+        $.getJSON(myApp.config.url, {}, myApp.favouritePix);
     },
             
     geo: function(){
-        myFeature.config.map = new google.maps.Map(document.getElementById('map_canvas'), myFeature.config.mapOptions);
+        myApp.config.map = new google.maps.Map(document.getElementById('map_canvas'), myApp.config.mapOptions);
     },
     
     codeLatLng: function(lat, lng) {
                 
         var latlng = new google.maps.LatLng(lat, lng);
         
-        myFeature.config.geocoder.geocode({'latLng': latlng}, function(results, status) {
+        myApp.config.geocoder.geocode({'latLng': latlng}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
-                    myFeature.config.map.setZoom(15);
-                    myFeature.config.marker = new google.maps.Marker({
+                    myApp.config.map.setZoom(15);
+                    myApp.config.marker = new google.maps.Marker({
                         position: latlng,
-                        map: myFeature.config.map
+                        map: myApp.config.map
                     });
-                    myFeature.config.infowindow.setContent(results[1].formatted_address);
-                    myFeature.config.infowindow.open(myFeature.config.map, myFeature.config.marker);
+                    myApp.config.infowindow.setContent(results[1].formatted_address);
+                    myApp.config.infowindow.open(myApp.config.map, myApp.config.marker);
                 } 
                     else {
                     alert('No results found');
@@ -67,25 +67,25 @@ var myFeature = {
     favouritePix: function(data){
        
        var lat, lng;
-        myFeature.config.results = data.photos.photo;
+        myApp.config.results = data.photos.photo;
               
-        $.each(myFeature.config.results, function(index, result){
+        $.each(myApp.config.results, function(index, result){
 
-            myFeature.config.photoId = result.id;
-            myFeature.config.farmId = result.farm;
-            myFeature.config.serverId = result.server;
-            myFeature.config.secretId = result.secret;
+            myApp.config.photoId = result.id;
+            myApp.config.farmId = result.farm;
+            myApp.config.serverId = result.server;
+            myApp.config.secretId = result.secret;
             lat = result.latitude;
             lng = result.longitude;
             
-            if (typeof(myFeature.config.farmId) != 'undefined') {
+            if (typeof(myApp.config.farmId) != 'undefined') {
 
                 $('.jTscroller').append('<a class="location" href="#"><img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_q.jpg")"><input id="try" type="hidden" value="'+lat+', '+lng+'"></a>');
             };
         });
 
         //set up listeners for the location class
-        myFeature.setupListeners();
+        myApp.setupListeners();
 
 
     },
@@ -96,33 +96,33 @@ var myFeature = {
         console.log("Am Alive");
         var lat, lng;
 
-        myFeature.config.findPix = $('#term').val();   
-        myFeature.config.url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=6bf279c5f9d9e36bea5b3fb83f7a44f6&tags="+ myFeature.config.findPix +"&has_geo=1&extras=geo&format=json&jsoncallback=?";
+        myApp.config.findPix = $('#term').val();   
+        myApp.config.url = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=6bf279c5f9d9e36bea5b3fb83f7a44f6&tags="+ myApp.config.findPix +"&has_geo=1&extras=geo&format=json&jsoncallback=?";
         
-        myFeature.config.myPix = function(data){
+        myApp.config.myPix = function(data){
             
-            myFeature.config.results = data.photos.photo;
-            $.each( myFeature.config.results, function(index, result){
+            myApp.config.results = data.photos.photo;
+            $.each( myApp.config.results, function(index, result){
                 
                 lat = result.latitude;
                 lng = result.longitude;
                
-               if (typeof(myFeature.config.farmId) != 'undefined') {
+               if (typeof(myApp.config.farmId) != 'undefined') {
 
                     $('.jTscroller').append('<a class="location" href="#"><img src="https://farm'+ result.farm +'.staticflickr.com/'+ result.server +'/'+ result.id +'_'+ result.secret +'_q.jpg")"><input id="try" type="hidden" value="'+lat+', '+lng+'"></a>');
                 };
             });
 
             //set up listeners for the location class
-            myFeature.setupListeners();
+            myApp.setupListeners();
                     
         };
 
-        $.getJSON(myFeature.config.url, {}, myFeature.config.myPix);
+        $.getJSON(myApp.config.url, {}, myApp.config.myPix);
     },
     
     setupListeners: function(){
-        $('#search').click(myFeature.pixSearch);    
+        $('#search').click(myApp.pixSearch);    
 
         $('.location').click(function(){
             console.log("location clicked");
@@ -132,7 +132,7 @@ var myFeature = {
             var lat = parseFloat(latlngStr[0]);
             var lng = parseFloat(latlngStr[1]);
                     
-            myFeature.codeLatLng( lat, lng);
+            myApp.codeLatLng( lat, lng);
                 // console.log("am a life" + lat, lng);
         });
     }    
@@ -141,7 +141,7 @@ var myFeature = {
 };
 
 $(document).ready(function(){
-    myFeature.init();
+    myApp.init();
 });
 
 
