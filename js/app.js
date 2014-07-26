@@ -35,7 +35,6 @@ var myApp = {
     codeLatLng: function(lat, lng) {
                 
         var latlng = new google.maps.LatLng(lat, lng);
-        
         myApp.config.geocoder.geocode({'latLng': latlng}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
@@ -54,9 +53,7 @@ var myApp = {
             else {
               alert('Geocoder failed due to: ' + status);
             }
-
         });
-    
     },
 
      /*************************
@@ -136,8 +133,6 @@ var myApp = {
                 // console.log("am a life" + lat, lng);
         });
     }    
-
-           
 };
 
 $(document).ready(function(){
